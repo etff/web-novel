@@ -1,1 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      force: true
 
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+    show-sql: true
+  profiles:
+    active: default
+
+logging:
+  level:
+    org.hibernate.type: trace # sql binding 값 출력
