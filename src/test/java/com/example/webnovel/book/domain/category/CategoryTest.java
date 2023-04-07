@@ -1,4 +1,4 @@
-package com.example.webnovel.book.category;
+package com.example.webnovel.book.domain.category;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
