@@ -2,13 +2,18 @@ package com.example.webnovel.book.domain.book;
 
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.global.model.BaseEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,15 +23,24 @@ import java.util.Objects;
 public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private Long bookId;
+
+    @Column(name = "title")
     private String title;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "book_status")
     private BookStatus bookStatus;
 
+    @Column(name = "category_id")
     private Long categoryId;
 
+    @Column(name = "author_id")
     private Long authorId;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Chapter> chapters = new ArrayList<>();
 
     protected Book() {
     }
