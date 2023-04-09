@@ -9,13 +9,13 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
-class ChapterTest {
+class EpisodeTest {
 
     @DisplayName("도서 회차를 생성할 수 있다")
     @Test
     void create() {
         String givenTitle = "test";
-        Chapter actual = new Chapter(givenTitle);
+        Episode actual = new Episode(givenTitle);
 
         assertThat(actual.getTitle()).isEqualTo(givenTitle);
         assertThat(actual.getBookStatus()).isEqualTo(BookStatus.REGISTERED);
@@ -26,7 +26,7 @@ class ChapterTest {
     @NullAndEmptySource
     void create_with_not_exist_title(String givenTitle) {
 
-        assertThatCode(() -> new Chapter(givenTitle))
+        assertThatCode(() -> new Episode(givenTitle))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
