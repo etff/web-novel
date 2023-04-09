@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
-public class Chapter extends BaseEntity {
+public class Episode extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chapterId;
@@ -27,10 +27,10 @@ public class Chapter extends BaseEntity {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    protected Chapter() {
+    protected Episode() {
     }
 
-    public Chapter(String title) {
+    public Episode(String title) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
