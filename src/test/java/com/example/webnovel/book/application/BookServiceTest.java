@@ -4,6 +4,7 @@ import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
+import com.example.webnovel.book.ui.EpisodeResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,6 +73,18 @@ class BookServiceTest {
                 () -> assertThat(actual.getTotalElements()).isEqualTo(1),
                 () -> assertThat(actual.getContent().get(0).getBookId()).isEqualTo(1L)
         );
+    }
+
+    @Test
+    void getEpisode() {
+        // get episode
+        // given
+        final Book givenBook = new Book(1L, "title", 1L, 1L);
+        given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
+
+        // when
+        EpisodeResponse actual = bookService.getEpisode(1L, 1L);
+
 
     }
 
