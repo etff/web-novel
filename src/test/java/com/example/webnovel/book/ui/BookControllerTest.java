@@ -37,7 +37,7 @@ class BookControllerTest {
         given(bookService.createBook("title", 1L, 1L)).willReturn(1L);
 
         // when & then
-        mvc.perform(post("/v1/books")
+        mvc.perform(post("/v1/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\":\"title\", \"authorId\":1, \"categoryId\":1}"))
                 .andExpect(status().isCreated())
@@ -51,7 +51,7 @@ class BookControllerTest {
         given(bookService.getBook(1L)).willReturn(new BookResponse(1L, "title", 1L, 1L));
 
         // when & then
-        mvc.perform(get("/v1/books/1"))
+        mvc.perform(get("/v1/api/books/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("bookId").value(1L))
                 .andExpect(jsonPath("title").value("title"))
@@ -71,7 +71,7 @@ class BookControllerTest {
         );
 
         // when & then
-        mvc.perform(get("/v1/books")
+        mvc.perform(get("/v1/api/books")
                         .param("bookStatus", "SALE")
                         .param("page", "1")
                         .param("size", "10"))
