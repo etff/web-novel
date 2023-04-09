@@ -21,7 +21,7 @@ import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/books")
+@RequestMapping("/v1/api/books")
 public class BookController {
     private final BookService bookService;
 
