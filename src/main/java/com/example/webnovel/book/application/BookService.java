@@ -4,6 +4,7 @@ import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
+import com.example.webnovel.book.ui.EpisodeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +26,7 @@ public class BookService {
 
     @Transactional(readOnly = true)
     public BookResponse getBook(Long bookId) {
-        final Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_BOOK));
+        final Book book = findBook(bookId);
         return new BookResponse(book);
     }
 
@@ -34,5 +34,16 @@ public class BookService {
     public Page<BookResponse> getBooks(BookStatus bookStatus, Pageable pageable) {
         return bookRepository.findAllByBookStatus(bookStatus, pageable)
                 .map(BookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public EpisodeResponse getEpisode(Long bookId, Long episodeId) {
+        final Book book = findBook(bookId);
+        return new EpisodeResponse(book.getEpisode(episodeId));
+    }
+
+    private Book findBook(Long bookId) {
+        return bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_BOOK));
     }
 }

@@ -81,4 +81,17 @@ class BookControllerTest {
                 .andExpect(jsonPath("content[0].authorId").value(1L))
                 .andExpect(jsonPath("content[0].categoryId").value(1L));
     }
+
+    @Test
+    void getEpisode() throws Exception {
+        // given
+        given(bookService.getEpisode(1L, 1L)).willReturn(new EpisodeResponse(1L, "title", "content"));
+
+        // when & then
+        mvc.perform(get("/v1/books/1/episodes/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("episodeId").value(1L))
+                .andExpect(jsonPath("title").value("title"))
+                .andExpect(jsonPath("content").value("content"));
+    }
 }
