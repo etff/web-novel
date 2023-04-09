@@ -29,4 +29,15 @@ class BookTest {
         assertThatCode(() -> new Book(givenTitle))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void addEpisode() {
+        // given
+        final Book book = new Book("title");
+        final Episode episode = new Episode("title", "content");
+        // when
+        book.addEpisode(episode);
+        // then
+        assertThat(book.getEpisodes().contains(episode)).isTrue();
+    }
 }

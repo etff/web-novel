@@ -58,7 +58,7 @@ public class Episode extends BaseEntity {
         return episodeId;
     }
 
-    public boolean isSameEpisode(Long episodeId) {
+    public boolean isSameEpisodeId(Long episodeId) {
         return Objects.equals(this.episodeId, episodeId);
     }
 

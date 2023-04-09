@@ -4,6 +4,7 @@ import com.example.webnovel.book.application.BookService;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookCreateRequest;
 import com.example.webnovel.book.dto.BookResponse;
+import com.example.webnovel.book.dto.EpisodeCreateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,7 @@ public class BookController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("{bookId}/episodes/{episodeId}")
+    @GetMapping("/{bookId}/episodes/{episodeId}")
     public ResponseEntity<EpisodeResponse> getEpisode(
             @PathVariable Long bookId,
             @PathVariable Long episodeId
@@ -56,5 +57,12 @@ public class BookController {
         return ResponseEntity.ok(episode);
     }
 
-
+    @PostMapping("/{bookId}/episodes")
+    public ResponseEntity<EpisodeResponse> addEpisode(
+            @PathVariable Long bookId,
+            @RequestBody @Valid EpisodeCreateRequest request
+    ) {
+        bookService.addEpisode(bookId, request.getTitle(), request.getContent());
+        return ResponseEntity.created(URI.create("/books/" + bookId + "/episodes")).build();
+    }
 }
