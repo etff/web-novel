@@ -1,5 +1,6 @@
 package com.example.webnovel.book.dto;
 
+import com.example.webnovel.book.domain.book.Book;
 import lombok.Getter;
 
 @Getter
@@ -17,5 +18,10 @@ public class BookResponse {
         this.title = title;
         this.authorId = authorId;
         this.categoryId = categoryId;
+    }
+
+    public BookResponse(Book book) {
+        this.bookId = book.getBookId();
+        this.title = book.getTitle();
     }
 }

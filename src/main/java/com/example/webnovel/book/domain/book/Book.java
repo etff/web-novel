@@ -46,13 +46,18 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title) {
-        this(title, null, null);
+        this(null, title, null, null);
     }
 
     public Book(String title, Long categoryId, Long authorId) {
+        this(null, title, categoryId, authorId);
+    }
+
+    public Book(Long bookId, String title, Long categoryId, Long authorId) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
+        this.bookId = bookId;
         this.title = title;
         this.categoryId = categoryId;
         this.authorId = authorId;
