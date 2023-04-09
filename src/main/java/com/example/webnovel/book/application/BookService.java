@@ -1,6 +1,7 @@
 package com.example.webnovel.book.application;
 
 import com.example.webnovel.book.domain.book.Book;
+import com.example.webnovel.book.domain.book.Episode;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
@@ -40,6 +41,12 @@ public class BookService {
     public EpisodeResponse getEpisode(Long bookId, Long episodeId) {
         final Book book = findBook(bookId);
         return new EpisodeResponse(book.getEpisode(episodeId));
+    }
+
+    public Book addEpisode(Long bookId, String title, String content, Integer ticketPrice) {
+        final Book book = findBook(bookId);
+        book.addEpisode(new Episode(title, content, ticketPrice));
+        return book;
     }
 
     private Book findBook(Long bookId) {

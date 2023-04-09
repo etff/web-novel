@@ -33,6 +33,11 @@ public class Episode extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    /**
+     * 티켓 가격. 회차를 구매할 때 사용.
+     */
+    private int ticketPrice;
+
     protected Episode() {
     }
 
@@ -41,16 +46,21 @@ public class Episode extends BaseEntity {
     }
 
     public Episode(String title, String content) {
-        this(null, title, content);
+        this(null, title, content, null);
     }
 
-    public Episode(Long episodeId, String title, String content) {
+    public Episode(String title, String content, Integer ticketPrice) {
+        this(null, title, content, ticketPrice);
+    }
+
+    public Episode(Long episodeId, String title, String content, Integer ticketPrice) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
         this.episodeId = episodeId;
         this.title = title;
         this.content = content;
+        this.ticketPrice = ticketPrice;
         this.bookStatus = BookStatus.REGISTERED;
     }
 
@@ -58,7 +68,7 @@ public class Episode extends BaseEntity {
         return episodeId;
     }
 
-    public boolean isSameEpisode(Long episodeId) {
+    public boolean isSameEpisodeId(Long episodeId) {
         return Objects.equals(this.episodeId, episodeId);
     }
 

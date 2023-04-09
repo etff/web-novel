@@ -47,11 +47,11 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title) {
-        this(null, title, null, null);
+        this(null, title, null, null, null);
     }
 
     public Book(String title, Long categoryId, Long authorId) {
-        this(null, title, categoryId, authorId);
+        this(null, title, categoryId, authorId, null);
     }
 
     public Book(Long bookId, String title, Long categoryId, Long authorId, Episode... episodes) {
@@ -102,7 +102,7 @@ public class Book extends BaseEntity {
 
     public Episode getEpisode(Long episodeId) {
         return episodes.stream()
-                .filter(episode -> episode.isSameEpisode(episodeId))
+                .filter(episode -> episode.isSameEpisodeId(episodeId))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("해당 에피소드가 없습니다."));
     }

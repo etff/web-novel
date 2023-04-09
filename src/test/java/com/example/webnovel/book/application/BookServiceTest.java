@@ -7,6 +7,7 @@ import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
 import com.example.webnovel.book.ui.EpisodeResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -37,20 +38,22 @@ class BookServiceTest {
         bookService = new BookService(bookRepository);
     }
 
+    @DisplayName("책을 생성할 수 있다.")
     @Test
     void createBook() {
         // given
-        given(bookRepository.save(any(Book.class))).willReturn(new Book(1L, "title", 1L, 1L));
+        given(bookRepository.save(any(Book.class))).willReturn(new Book(1L, "title", 1L, 1L, null));
         // when
         final Long actual = bookService.createBook("title", 1L, 1L);
         // then
         assertThat(actual).isEqualTo(1L);
     }
 
+    @DisplayName("책을 조회할 수 있다.")
     @Test
     void readBookById() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
         // when
         final BookResponse actual = bookService.getBook(1L);
@@ -58,11 +61,12 @@ class BookServiceTest {
         assertThat(actual.getBookId()).isEqualTo(givenBook.getBookId());
     }
 
+    @DisplayName("책을 페이지 단위로 조회할 수 있다.")
     @Test
     void readBookByPage() {
         // given
         given(bookRepository.findAllByBookStatus(any(), any())).willReturn(
-                new PageImpl<>(List.of(new Book(1L, "title", 1L, 1L)))
+                new PageImpl<>(List.of(new Book(1L, "title", 1L, 1L, null)))
         );
 
         // when
@@ -76,10 +80,11 @@ class BookServiceTest {
         );
     }
 
+    @DisplayName("에피소드를 조회할 수 있다.")
     @Test
     void getEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content"));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content", 0));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
@@ -87,6 +92,20 @@ class BookServiceTest {
 
         // then
         assertThat(actual.getEpisodeId()).isEqualTo(1L);
+    }
+
+    @DisplayName("에피소드를 추가할 수 있다.")
+    @Test
+    void addEpisode() {
+        // given
+        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
+        given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
+
+        // when
+        Book actual = bookService.addEpisode(1L, "title", "content", 1);
+
+        // then
+        assertThat(actual.getEpisodes().size()).isEqualTo(1);
     }
 
 }
