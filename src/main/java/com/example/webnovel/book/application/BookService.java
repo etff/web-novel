@@ -1,9 +1,12 @@
 package com.example.webnovel.book.application;
 
 import com.example.webnovel.book.domain.book.Book;
+import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +18,8 @@ public class BookService {
     private final BookRepository bookRepository;
 
     public Long createBook(String title, Long authorId, Long categoryId) {
-        final Book saved = bookRepository.save(new Book(title, authorId, categoryId));
+        Book entity = new Book(title, authorId, categoryId);
+        final Book saved = bookRepository.save(entity);
         return saved.getBookId();
     }
 
@@ -24,5 +28,11 @@ public class BookService {
         final Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_BOOK));
         return new BookResponse(book);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<BookResponse> getBooks(BookStatus bookStatus, Pageable pageable) {
+        return bookRepository.findAllByBookStatus(bookStatus, pageable)
+                .map(BookResponse::new);
     }
 }
