@@ -47,4 +47,14 @@ public class BookController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping("{bookId}/episodes/{episodeId}")
+    public ResponseEntity<EpisodeResponse> getEpisode(
+            @PathVariable Long bookId,
+            @PathVariable Long episodeId
+    ) {
+        final EpisodeResponse episode = bookService.getEpisode(bookId, episodeId);
+        return ResponseEntity.ok(episode);
+    }
+
+
 }

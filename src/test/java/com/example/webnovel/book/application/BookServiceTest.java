@@ -1,6 +1,7 @@
 package com.example.webnovel.book.application;
 
 import com.example.webnovel.book.domain.book.Book;
+import com.example.webnovel.book.domain.book.Episode;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.infra.BookRepository;
@@ -77,15 +78,15 @@ class BookServiceTest {
 
     @Test
     void getEpisode() {
-        // get episode
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content"));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
         EpisodeResponse actual = bookService.getEpisode(1L, 1L);
 
-
+        // then
+        assertThat(actual.getEpisodeId()).isEqualTo(1L);
     }
 
 }
