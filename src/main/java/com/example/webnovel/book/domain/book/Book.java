@@ -40,16 +40,22 @@ public class Book extends BaseEntity {
     private Long authorId;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private List<Chapter> chapters = new ArrayList<>();
+    private List<Episode> episodes = new ArrayList<>();
 
     protected Book() {
     }
 
     public Book(String title) {
+        this(title, null, null);
+    }
+
+    public Book(String title, Long categoryId, Long authorId) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
         this.title = title;
+        this.categoryId = categoryId;
+        this.authorId = authorId;
         this.bookStatus = BookStatus.REGISTERED;
     }
 
