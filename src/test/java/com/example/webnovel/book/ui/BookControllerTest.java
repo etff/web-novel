@@ -1,6 +1,8 @@
 package com.example.webnovel.book.ui;
 
 import com.example.webnovel.book.application.BookService;
+import com.example.webnovel.book.domain.book.Book;
+import com.example.webnovel.book.domain.book.Episode;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +39,7 @@ class BookControllerTest {
         given(bookService.createBook("title", 1L, 1L)).willReturn(1L);
 
         // when & then
-        mvc.perform(post("/v1/books")
+        mvc.perform(post("/v1/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\":\"title\", \"authorId\":1, \"categoryId\":1}"))
                 .andExpect(status().isCreated())
@@ -51,7 +53,7 @@ class BookControllerTest {
         given(bookService.getBook(1L)).willReturn(new BookResponse(1L, "title", 1L, 1L));
 
         // when & then
-        mvc.perform(get("/v1/books/1"))
+        mvc.perform(get("/v1/api/books/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("bookId").value(1L))
                 .andExpect(jsonPath("title").value("title"))
@@ -71,7 +73,7 @@ class BookControllerTest {
         );
 
         // when & then
-        mvc.perform(get("/v1/books")
+        mvc.perform(get("/v1/api/books")
                         .param("bookStatus", "SALE")
                         .param("page", "1")
                         .param("size", "10"))
@@ -80,5 +82,33 @@ class BookControllerTest {
                 .andExpect(jsonPath("content[0].title").value("title1"))
                 .andExpect(jsonPath("content[0].authorId").value(1L))
                 .andExpect(jsonPath("content[0].categoryId").value(1L));
+    }
+
+    @DisplayName("식별자를 통해 에피소드를 가져올 수 있다")
+    @Test
+    void getEpisode() throws Exception {
+        // given
+        given(bookService.getEpisode(1L, 1L)).willReturn(new EpisodeResponse(1L, "title", "content"));
+
+        // when & then
+        mvc.perform(get("/v1/api/books/1/episodes/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("episodeId").value(1L))
+                .andExpect(jsonPath("title").value("title"))
+                .andExpect(jsonPath("content").value("content"));
+    }
+
+    @DisplayName("식별자를 통해 에피소드를 추가할 수 있다")
+    @Test
+    void addEpisode() throws Exception {
+        // given
+        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content", 1));
+        given(bookService.addEpisode(1L, "title", "content", 1)).willReturn(givenBook);
+
+        // when & then
+        mvc.perform(post("/v1/api/books/1/episodes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\":\"title\", \"content\":\"content\"}"))
+                .andExpect(status().isCreated());
     }
 }

@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,14 +47,14 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title) {
-        this(null, title, null, null);
+        this(null, title, null, null, null);
     }
 
     public Book(String title, Long categoryId, Long authorId) {
-        this(null, title, categoryId, authorId);
+        this(null, title, categoryId, authorId, null);
     }
 
-    public Book(Long bookId, String title, Long categoryId, Long authorId) {
+    public Book(Long bookId, String title, Long categoryId, Long authorId, Episode... episodes) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -62,6 +63,7 @@ public class Book extends BaseEntity {
         this.categoryId = categoryId;
         this.authorId = authorId;
         this.bookStatus = BookStatus.REGISTERED;
+        this.episodes = episodes == null ? new ArrayList<>() : List.of(episodes);
     }
 
     public Long getBookId() {
@@ -76,6 +78,15 @@ public class Book extends BaseEntity {
         return bookStatus;
     }
 
+    public List<Episode> getEpisodes() {
+        return Collections.unmodifiableList(episodes);
+    }
+
+    public void addEpisode(Episode episode) {
+        this.episodes.add(episode);
+        episode.setBook(this);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,5 +98,12 @@ public class Book extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(getBookId());
+    }
+
+    public Episode getEpisode(Long episodeId) {
+        return episodes.stream()
+                .filter(episode -> episode.isSameEpisodeId(episodeId))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("해당 에피소드가 없습니다."));
     }
 }
