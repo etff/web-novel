@@ -43,9 +43,9 @@ public class BookService {
         return new EpisodeResponse(book.getEpisode(episodeId));
     }
 
-    public Book addEpisode(Long bookId, String title, String content) {
+    public Book addEpisode(Long bookId, String title, String content, Integer ticketPrice) {
         final Book book = findBook(bookId);
-        book.addEpisode(new Episode(title, content));
+        book.addEpisode(new Episode(title, content, ticketPrice));
         return book;
     }
 

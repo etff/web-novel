@@ -102,8 +102,8 @@ class BookControllerTest {
     @Test
     void addEpisode() throws Exception {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content"));
-        given(bookService.addEpisode(1L, "title", "content")).willReturn(givenBook);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content", 1));
+        given(bookService.addEpisode(1L, "title", "content", 1)).willReturn(givenBook);
 
         // when & then
         mvc.perform(post("/v1/api/books/1/episodes")

@@ -62,7 +62,7 @@ public class BookController {
             @PathVariable Long bookId,
             @RequestBody @Valid EpisodeCreateRequest request
     ) {
-        bookService.addEpisode(bookId, request.getTitle(), request.getContent());
+        bookService.addEpisode(bookId, request.getTitle(), request.getContent(), request.getTicketPrice());
         return ResponseEntity.created(URI.create("/books/" + bookId + "/episodes")).build();
     }
 }
