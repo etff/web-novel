@@ -6,6 +6,8 @@ import com.example.webnovel.book.dto.BookResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,12 @@ public class BookController {
         final Long bookId = bookService.createBook(
                 request.getTitle(), request.getAuthorId(), request.getCategoryId());
         return ResponseEntity.created(URI.create("/books/" + bookId)).build();
+    }
+
+    @GetMapping("/{bookId}")
+    public ResponseEntity<BookResponse> getBook(@PathVariable Long bookId) {
+        final BookResponse book = bookService.getBook(bookId);
+        return ResponseEntity.ok(book);
     }
 
 }
