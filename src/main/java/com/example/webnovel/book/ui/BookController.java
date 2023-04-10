@@ -5,6 +5,7 @@ import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookCreateRequest;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.dto.EpisodeCreateRequest;
+import com.example.webnovel.book.dto.EpisodeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

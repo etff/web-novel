@@ -5,6 +5,7 @@ import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.Episode;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
+import com.example.webnovel.book.dto.EpisodeResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
