@@ -1,6 +1,6 @@
-package com.example.webnovel.user.domain;
+package com.example.webnovel.auth.domain;
 
-import com.example.webnovel.user.domain.type.Role;
+import com.example.webnovel.auth.domain.type.Role;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

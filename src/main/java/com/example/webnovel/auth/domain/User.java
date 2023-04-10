@@ -1,8 +1,8 @@
-package com.example.webnovel.user.domain;
+package com.example.webnovel.auth.domain;
 
+import com.example.webnovel.auth.domain.type.Role;
+import com.example.webnovel.auth.domain.type.UserType;
 import com.example.webnovel.global.model.BaseEntity;
-import com.example.webnovel.user.domain.type.Role;
-import com.example.webnovel.user.domain.type.UserType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
