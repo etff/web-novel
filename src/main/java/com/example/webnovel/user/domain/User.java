@@ -1,8 +1,9 @@
-package com.example.webnovel.auth.domain;
+package com.example.webnovel.user.domain;
 
-import com.example.webnovel.auth.domain.type.Role;
-import com.example.webnovel.auth.domain.type.UserType;
 import com.example.webnovel.global.model.BaseEntity;
+import com.example.webnovel.user.domain.type.Role;
+import com.example.webnovel.user.domain.type.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,19 +36,21 @@ public class User extends BaseEntity {
     private String name;
 
     @Getter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "member_type", length = 10, nullable = false)
+    @JsonIgnore
+    @Column(name = "password", length = 200, nullable = false)
     private String password;
 
     @Getter
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_type", length = 10, nullable = false)
+    @Column(name = "role", length = 20, nullable = false)
     private Role role;
 
     @Getter
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type", length = 10, nullable = false)
     private UserType userType;
+
+    private boolean deleted;
 
     @Builder
     private User(Long userId, String email, String name, String password, Role role, UserType userType) {
@@ -57,6 +60,7 @@ public class User extends BaseEntity {
         this.password = password;
         this.role = role;
         this.userType = userType;
+        this.deleted = false;
     }
 
     public static User ofUser(String email, String name, String password) {
