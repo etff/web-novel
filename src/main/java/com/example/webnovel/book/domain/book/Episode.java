@@ -36,7 +36,7 @@ public class Episode extends BaseEntity {
     /**
      * 티켓 가격. 회차를 구매할 때 사용.
      */
-    private int ticketPrice;
+    private Integer ticketPrice;
 
     protected Episode() {
     }
