@@ -25,7 +25,7 @@ public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
-    private Long bookId;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -54,11 +54,11 @@ public class Book extends BaseEntity {
         this(null, title, categoryId, authorId, null);
     }
 
-    public Book(Long bookId, String title, Long categoryId, Long authorId, Episode... episodes) {
+    public Book(Long id, String title, Long categoryId, Long authorId, Episode... episodes) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
-        this.bookId = bookId;
+        this.id = id;
         this.title = title;
         this.categoryId = categoryId;
         this.authorId = authorId;
@@ -66,8 +66,8 @@ public class Book extends BaseEntity {
         this.episodes = episodes == null ? new ArrayList<>() : List.of(episodes);
     }
 
-    public Long getBookId() {
-        return bookId;
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -92,12 +92,12 @@ public class Book extends BaseEntity {
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
         Book book = (Book) o;
-        return Objects.equals(getBookId(), book.getBookId());
+        return Objects.equals(getId(), book.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBookId());
+        return Objects.hash(getId());
     }
 
     public Episode getEpisode(Long episodeId) {

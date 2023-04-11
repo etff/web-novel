@@ -21,7 +21,7 @@ public class BookResponse {
     }
 
     public BookResponse(Book book) {
-        this.bookId = book.getBookId();
+        this.bookId = book.getId();
         this.title = book.getTitle();
     }
 }

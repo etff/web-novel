@@ -32,7 +32,7 @@ class UserServiceTest {
         final String givenName = "test";
         final String givenPassword = "test";
         User user = User.ofUser(givenEmail, givenName, givenPassword);
-        ReflectionTestUtils.setField(user, "userId", 1L);
+        ReflectionTestUtils.setField(user, "id", 1L);
 
         given(userRepository.save(any(User.class)))
                 .willReturn(user);

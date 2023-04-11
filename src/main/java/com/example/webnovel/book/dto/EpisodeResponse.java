@@ -19,7 +19,7 @@ public class EpisodeResponse {
     }
 
     public EpisodeResponse(Episode episode) {
-        this.episodeId = episode.getEpisodeId();
+        this.episodeId = episode.getId();
         this.title = episode.getTitle();
         this.content = episode.getContent();
     }

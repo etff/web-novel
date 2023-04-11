@@ -22,7 +22,7 @@ public class BookService {
     public Long createBook(String title, Long authorId, Long categoryId) {
         Book entity = new Book(title, authorId, categoryId);
         final Book saved = bookRepository.save(entity);
-        return saved.getBookId();
+        return saved.getId();
     }
 
     @Transactional(readOnly = true)
