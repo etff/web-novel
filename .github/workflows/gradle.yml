@@ -44,6 +44,11 @@ jobs:
         if: ${{ always() }}
         with:
           files: build/test-results/**/*.xml
+      - uses: anc95/ChatGPT-CodeReview@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGUAGE: Korean
 
       # 추가
       - name: Cleanup Gradle Cache
