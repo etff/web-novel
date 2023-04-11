@@ -11,9 +11,6 @@ on:
   pull_request:
     branches: [ "main", "develop" ]
 
-permissions:
-  contents: write-all
-
 jobs:
   build:
 
