@@ -1,4 +1,4 @@
-package com.example.webnovel.book.ui;
+package com.example.webnovel.book.dto;
 
 import com.example.webnovel.book.domain.book.Episode;
 import lombok.Getter;

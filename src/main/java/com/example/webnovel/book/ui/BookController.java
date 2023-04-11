@@ -5,6 +5,7 @@ import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookCreateRequest;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.dto.EpisodeCreateRequest;
+import com.example.webnovel.book.dto.EpisodeResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ import java.net.URI;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/api/books")
+@RequestMapping("/api/v1/books")
 public class BookController {
     private final BookService bookService;
 
