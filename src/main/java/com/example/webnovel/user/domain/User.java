@@ -24,8 +24,9 @@ public class User extends BaseEntity {
 
     @Getter
     @Id
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @Getter
     @Column(name = "email", length = 50, nullable = false, unique = true)
@@ -53,8 +54,8 @@ public class User extends BaseEntity {
     private boolean deleted;
 
     @Builder
-    private User(Long userId, String email, String name, String password, Role role, UserType userType) {
-        this.userId = userId;
+    private User(Long id, String email, String name, String password, Role role, UserType userType) {
+        this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;

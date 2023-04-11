@@ -20,7 +20,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Episode extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long episodeId;
+    private Long id;
     private String title;
 
     @Enumerated(EnumType.STRING)
@@ -53,23 +53,23 @@ public class Episode extends BaseEntity {
         this(null, title, content, ticketPrice);
     }
 
-    public Episode(Long episodeId, String title, String content, Integer ticketPrice) {
+    public Episode(Long id, String title, String content, Integer ticketPrice) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
-        this.episodeId = episodeId;
+        this.id = id;
         this.title = title;
         this.content = content;
         this.ticketPrice = ticketPrice;
         this.bookStatus = BookStatus.REGISTERED;
     }
 
-    public Long getEpisodeId() {
-        return episodeId;
+    public Long getId() {
+        return id;
     }
 
     public boolean isSameEpisodeId(Long episodeId) {
-        return Objects.equals(this.episodeId, episodeId);
+        return Objects.equals(this.id, episodeId);
     }
 
     public String getTitle() {

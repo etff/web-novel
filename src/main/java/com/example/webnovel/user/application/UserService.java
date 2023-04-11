@@ -17,6 +17,6 @@ public class UserService {
     public Long registerUser(String email, String name, String password) {
         final User user = User.ofUser(email, name, password);
         final User saved = userRepository.save(user);
-        return saved.getUserId();
+        return saved.getId();
     }
 }

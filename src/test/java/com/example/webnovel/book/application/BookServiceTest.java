@@ -58,7 +58,7 @@ class BookServiceTest {
         // when
         final BookResponse actual = bookService.getBook(1L);
 
-        assertThat(actual.getBookId()).isEqualTo(givenBook.getBookId());
+        assertThat(actual.getBookId()).isEqualTo(givenBook.getId());
     }
 
     @DisplayName("책을 페이지 단위로 조회할 수 있다.")
