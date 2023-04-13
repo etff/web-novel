@@ -38,15 +38,15 @@ public abstract class Product extends BaseEntity {
     protected Product() {
     }
 
-    protected Product(Long id, String name, Integer price) {
+    protected Product(Long id, String name, Integer price, ProductStatus productStatus) {
         validate(name, price);
         this.id = id;
         this.name = name;
         this.price = price;
-        this.productStatus = ProductStatus.REGISTERED;
+        this.productStatus = productStatus;
     }
 
-    public void validate(String name, Integer price) {
+    private void validate(String name, Integer price) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("상품명이 비어있으면 안됩니다.");
         }

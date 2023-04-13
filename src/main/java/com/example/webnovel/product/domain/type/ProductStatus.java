@@ -4,7 +4,7 @@ public enum ProductStatus {
     /**
      * 등록, 판매 종료, 판매, 판매예정
      */
-    REGISTERED, SALE_END, SALE, SOLD_OUT, SCHEDULED;
+    REGISTERED, SALE_END, SELLING, SOLD_OUT, SCHEDULED;
 
     public static ProductStatus from(String productStatus) {
         if (productStatus == null || productStatus.isBlank()) {

@@ -1,5 +1,6 @@
 package com.example.webnovel.product.domain;
 
+import com.example.webnovel.product.domain.type.ProductStatus;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -19,7 +20,11 @@ public class Ticket extends Product {
     }
 
     public Ticket(Long id, String name, Integer price, Integer quantity) {
-        super(id, name, price);
+        this(id, name, price, quantity, ProductStatus.REGISTERED);
+    }
+
+    public Ticket(Long id, String name, Integer price, Integer quantity, ProductStatus productStatus) {
+        super(id, name, price, productStatus);
         validate(quantity);
         this.quantity = quantity;
     }
