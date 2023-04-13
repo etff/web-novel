@@ -7,7 +7,7 @@ public enum BookStatus {
     /**
      * 등록, 판매 종료, 판매, 판매예정
      */
-    REGISTERED, SALE_END, SALE, SCHEDULED;
+    REGISTERED, SALE_END, SELLING, SCHEDULED;
 
     public static BookStatus from(String bookStatus) {
         if (bookStatus == null || bookStatus.isBlank()) {

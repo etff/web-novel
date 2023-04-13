@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,6 @@ public class BookController {
             @RequestBody @Valid EpisodeCreateRequest request
     ) {
         bookService.addEpisode(bookId, request.getTitle(), request.getContent(), request.getTicketPrice());
-        return ResponseEntity.created(URI.create("/books/" + bookId + "/episodes")).build();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -70,7 +70,7 @@ class BookServiceTest {
         );
 
         // when
-        Page<BookResponse> actual = bookService.getBooks(BookStatus.SALE, PageRequest.of(1, 10));
+        Page<BookResponse> actual = bookService.getBooks(BookStatus.SELLING, PageRequest.of(1, 10));
 
         // then
         assertAll(

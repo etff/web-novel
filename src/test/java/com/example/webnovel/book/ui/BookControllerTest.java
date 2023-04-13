@@ -66,7 +66,7 @@ class BookControllerTest {
     @Test
     void getBooksWithPageInfo() throws Exception {
         // given
-        given(bookService.getBooks(BookStatus.SALE, PageRequest.of(1, 10))).willReturn(
+        given(bookService.getBooks(BookStatus.SELLING, PageRequest.of(1, 10))).willReturn(
                 new PageImpl<>(List.of(
                         new BookResponse(1L, "title1", 1L, 1L),
                         new BookResponse(2L, "title2", 1L, 1L)
@@ -75,7 +75,7 @@ class BookControllerTest {
 
         // when & then
         mvc.perform(get("/api/v1/books")
-                        .param("bookStatus", "SALE")
+                        .param("bookStatus", "SELLING")
                         .param("page", "1")
                         .param("size", "10"))
                 .andExpect(status().isOk())
