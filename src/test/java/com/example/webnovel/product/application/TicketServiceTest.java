@@ -63,6 +63,7 @@ class TicketServiceTest {
         );
     }
 
+    @DisplayName("티켓 상태를 변경할 때 티켓이 존재하지 않으면 예외를 던진다")
     @Test
     void change_status_with_not_found_ticket() {
         // given
