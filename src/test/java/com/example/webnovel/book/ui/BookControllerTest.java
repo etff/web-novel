@@ -75,7 +75,7 @@ class BookControllerTest {
 
         // when & then
         mvc.perform(get("/api/v1/books")
-                        .param("bookStatus", "SALE")
+                        .param("bookStatus", "SELLING")
                         .param("page", "1")
                         .param("size", "10"))
                 .andExpect(status().isOk())
