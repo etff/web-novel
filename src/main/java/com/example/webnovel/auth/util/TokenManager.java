@@ -79,15 +79,20 @@ public class TokenManager implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
+        Collection<? extends GrantedAuthority> authorities = getAuthorities(claims);
 
         User findUser = userRepository.findByEmail(claims.getSubject())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
         AuthDetails authDetails = new AuthDetails(findUser);
         return new UsernamePasswordAuthenticationToken(authDetails, token, authorities);
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(Claims claims) {
+        Collection<? extends GrantedAuthority> authorities =
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+        return authorities;
     }
 
     public boolean validateToken(String token) {

@@ -1,5 +1,6 @@
 package com.example.webnovel.auth.dto;
 
+import com.example.webnovel.global.error.exception.EntityNotFoundException;
 import com.example.webnovel.user.domain.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +14,9 @@ public class AuthDetails implements UserDetails {
     private User user;
 
     public AuthDetails(User user) {
+        if (user.isDeleted()) {
+            throw new EntityNotFoundException("삭제된 사용자입니다.");
+        }
         this.user = user;
     }
 
