@@ -21,7 +21,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity<Long> registerUser(@Valid @RequestBody UserRegisterRequest dto) {
         final Long userId = userService.registerUser(dto.getEmail(), dto.getName(), dto.getPassword());
         return ResponseEntity.created(URI.create("/users/" + userId)).body(userId);
