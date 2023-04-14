@@ -6,10 +6,15 @@ server:
       charset: UTF-8
       force: true
 
+jwt:
+  secret: c3ByaW5nLXdlYi1ub3ZlbC1jaGFsbGVuZ2UtZXRmZi1zZWN1cml0eS1jaGFsbGVuZ2UtYWxwaGEtYmV0YS1jaGFybGUtZGVsdGEK
+  expire-length: 10800000 # 1000 miliseconds * 60 seconds * 60 minutes * 3 hours
+
 spring:
   jpa:
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
 
     properties:
       hibernate:
@@ -18,6 +23,9 @@ spring:
     show-sql: true
   profiles:
     active: default
+  sql:
+    init:
+      mode: always
 
 logging:
   level:
