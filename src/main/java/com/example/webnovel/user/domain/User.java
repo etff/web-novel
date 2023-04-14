@@ -17,6 +17,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
@@ -51,6 +53,7 @@ public class User extends BaseEntity {
     @Column(name = "user_type", length = 10, nullable = false)
     private UserType userType;
 
+    @Getter
     private boolean deleted;
 
     @Builder
@@ -86,5 +89,18 @@ public class User extends BaseEntity {
 
     public void changePassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
