@@ -12,7 +12,7 @@ public class LoginRequest {
     @Email
     private String email;
 
-    @Size(min = 8, max = 20)
+    @Size(min = 2, max = 20)
     private String password;
 
     public LoginRequest(String email, String password) {

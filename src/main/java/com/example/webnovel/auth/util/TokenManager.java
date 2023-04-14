@@ -1,5 +1,8 @@
 package com.example.webnovel.auth.util;
 
+import com.example.webnovel.auth.dto.AuthDetails;
+import com.example.webnovel.user.domain.User;
+import com.example.webnovel.user.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +18,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -35,11 +37,16 @@ public class TokenManager implements InitializingBean {
     private final long validityInMilliseconds;
     private Key key;
 
+    private final UserRepository userRepository;
+
     public TokenManager(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.expire-length}") long validityInMilliseconds) {
+            @Value("${jwt.expire-length}") long validityInMilliseconds,
+            UserRepository userRepository
+    ) {
         this.secret = secret;
         this.validityInMilliseconds = validityInMilliseconds * 1000;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -77,9 +84,10 @@ public class TokenManager implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        User findUser = userRepository.findByEmail(claims.getSubject())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        AuthDetails authDetails = new AuthDetails(findUser);
+        return new UsernamePasswordAuthenticationToken(authDetails, token, authorities);
     }
 
     public boolean validateToken(String token) {

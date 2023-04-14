@@ -6,6 +6,7 @@ import com.example.webnovel.auth.dto.TokenResponse;
 import com.example.webnovel.global.config.security.filter.JwtFilter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -23,8 +25,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> authorize(@Valid @RequestBody LoginRequest loginRequest) {
-        final String token = authService.getToken(loginRequest.getEmail(), loginRequest.getPassword());
-
+        String token = authService.getToken(loginRequest.getEmail(), loginRequest.getPassword());
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, BEARER + token);
 
