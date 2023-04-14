@@ -1,8 +1,8 @@
-package com.example.webnovel.global.auth.ui;
+package com.example.webnovel.auth.ui;
 
-import com.example.webnovel.global.auth.application.AuthService;
-import com.example.webnovel.global.auth.dto.LoginRequest;
-import com.example.webnovel.global.auth.dto.TokenResponse;
+import com.example.webnovel.auth.application.AuthService;
+import com.example.webnovel.auth.dto.LoginRequest;
+import com.example.webnovel.auth.dto.TokenResponse;
 import com.example.webnovel.global.config.security.filter.JwtFilter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

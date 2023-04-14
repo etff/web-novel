@@ -1,4 +1,4 @@
-package com.example.webnovel.global.auth.util;
+package com.example.webnovel.auth.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

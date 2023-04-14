@@ -1,6 +1,6 @@
 package com.example.webnovel.global.config.security.filter;
 
-import com.example.webnovel.global.auth.util.TokenManager;
+import com.example.webnovel.auth.util.TokenManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

@@ -1,6 +1,6 @@
-package com.example.webnovel.global.auth.application;
+package com.example.webnovel.auth.application;
 
-import com.example.webnovel.global.auth.util.TokenManager;
+import com.example.webnovel.auth.util.TokenManager;
 import com.example.webnovel.global.error.exception.BusinessException;
 import com.example.webnovel.global.error.exception.EntityNotFoundException;
 import com.example.webnovel.global.error.exception.ErrorCode;

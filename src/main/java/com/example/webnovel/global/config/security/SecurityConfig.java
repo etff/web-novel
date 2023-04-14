@@ -1,8 +1,8 @@
 package com.example.webnovel.global.config.security;
 
-import com.example.webnovel.global.auth.handler.JwtAccessDeniedHandler;
-import com.example.webnovel.global.auth.handler.JwtAuthenticationEntryPoint;
-import com.example.webnovel.global.auth.util.TokenManager;
+import com.example.webnovel.auth.handler.JwtAccessDeniedHandler;
+import com.example.webnovel.auth.handler.JwtAuthenticationEntryPoint;
+import com.example.webnovel.auth.util.TokenManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

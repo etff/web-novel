@@ -1,4 +1,4 @@
-package com.example.webnovel.global.auth.dto;
+package com.example.webnovel.auth.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

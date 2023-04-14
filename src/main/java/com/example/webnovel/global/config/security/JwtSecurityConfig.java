@@ -1,6 +1,6 @@
 package com.example.webnovel.global.config.security;
 
-import com.example.webnovel.global.auth.util.TokenManager;
+import com.example.webnovel.auth.util.TokenManager;
 import com.example.webnovel.global.config.security.filter.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

@@ -1,4 +1,4 @@
-package com.example.webnovel.global.auth.dto;
+package com.example.webnovel.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

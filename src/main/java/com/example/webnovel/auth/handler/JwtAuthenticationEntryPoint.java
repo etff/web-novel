@@ -1,4 +1,4 @@
-package com.example.webnovel.global.auth.handler;
+package com.example.webnovel.auth.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
