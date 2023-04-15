@@ -5,6 +5,7 @@ import com.example.webnovel.user.exception.EmailDuplicatedException;
 import com.example.webnovel.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +26,12 @@ public class UserService {
         final User user = User.ofUser(email, name, passwordEncoder.encode(password));
         final User saved = userRepository.save(user);
         return saved.getId();
+    }
+
+    public void subscribeEpisode(Long userId, Long episodeId, Integer count) {
+        final User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
+
+        user.subscribeEpisode(episodeId, count);
     }
 }

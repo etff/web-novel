@@ -2,11 +2,14 @@ package com.example.webnovel.book.application;
 
 import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.Episode;
+import com.example.webnovel.book.domain.book.EpisodeSubscribeEvent;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.dto.EpisodeResponse;
 import com.example.webnovel.book.infra.BookRepository;
+import com.example.webnovel.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService {
     public static final String NOT_EXIST_BOOK = "존재하지 않는 책입니다.";
     private final BookRepository bookRepository;
+
+    private final ApplicationEventPublisher eventPublisher;
 
     public Long createBook(String title, Long authorId, Long categoryId) {
         Book entity = new Book(title, authorId, categoryId);
@@ -37,10 +42,15 @@ public class BookService {
                 .map(BookResponse::new);
     }
 
-    @Transactional(readOnly = true)
-    public EpisodeResponse getEpisode(Long bookId, Long episodeId) {
+    public EpisodeResponse getEpisode(Long bookId, Long userId, Long episodeId) {
         final Book book = findBook(bookId);
-        return new EpisodeResponse(book.getEpisode(episodeId));
+        book.onSaleCheck();
+        Episode episode = book.getEpisode(episodeId);
+        if (episode == null) {
+            throw new EntityNotFoundException("존재하지 않는 에피소드입니다.");
+        }
+        eventPublisher.publishEvent(new EpisodeSubscribeEvent(episodeId, userId, episode.getTicketPrice()));
+        return new EpisodeResponse(episode);
     }
 
     public Book addEpisode(Long bookId, String title, String content, Integer ticketPrice) {

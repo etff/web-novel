@@ -16,3 +16,12 @@ values (now(), 'SYSTEM', 'SYSTEM', '90장', 8700, 'SELLING', now(), 90, 'TICKET'
 insert into product (create_time, created_by, modified_by, name, price, product_status, update_time, quantity,
                      product_type)
 values (now(), 'SYSTEM', 'SYSTEM', '한 번에 구매하기', 8600, 'SELLING', now(), null, 'TICKET');
+insert into user_ticket(create_time, created_by, modified_by, update_time, user_id, ticket_count)
+values (now(), 'SYSTEM', 'SYSTEM', now(), 1, 100);
+
+insert into book(create_time, created_by, modified_by, update_time, title, book_status)
+values (now(), 'SYSTEM', 'SYSTEM', now(), 'spring 비법', 'SELLING');
+
+insert into episode(create_time, created_by, modified_by, update_time, book_id, book_status, title, ticket_price,
+                    content)
+values (now(), 'SYSTEM', 'SYSTEM', now(), 1, 'SELLING', 'ch1.객체지향', 1, '객체지향 프로그래밍이란 무엇인가?');

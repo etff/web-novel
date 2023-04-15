@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -31,11 +32,14 @@ class BookServiceTest {
     @Mock
     private BookRepository bookRepository;
 
+    @Mock
+    private ApplicationEventPublisher eventPublisher;
+
     private BookService bookService;
 
     @BeforeEach
     void setUp() {
-        bookService = new BookService(bookRepository);
+        bookService = new BookService(bookRepository, eventPublisher);
     }
 
     @DisplayName("책을 생성할 수 있다.")
@@ -88,7 +92,7 @@ class BookServiceTest {
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
-        EpisodeResponse actual = bookService.getEpisode(1L, 1L);
+        EpisodeResponse actual = bookService.getEpisode(1L, 1L, 1L);
 
         // then
         assertThat(actual.getEpisodeId()).isEqualTo(1L);

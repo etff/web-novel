@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ public class Episode extends BaseEntity {
     /**
      * 티켓 가격. 회차를 구매할 때 사용.
      */
+    @Getter
     private Integer ticketPrice;
 
     protected Episode() {
