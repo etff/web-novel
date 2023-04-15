@@ -28,10 +28,11 @@ public class UserService {
         return saved.getId();
     }
 
-    public void subscribeEpisode(Long userId, Long episodeId, Integer count) {
+    public User subscribeEpisode(Long userId, Long episodeId, Integer count) {
         final User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + userId));
 
         user.subscribeEpisode(episodeId, count);
+        return user;
     }
 }
