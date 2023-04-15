@@ -47,14 +47,14 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title) {
-        this(null, title, null, null, null);
+        this(null, title, null, null, BookStatus.REGISTERED, null);
     }
 
     public Book(String title, Long categoryId, Long authorId) {
-        this(null, title, categoryId, authorId, null);
+        this(null, title, categoryId, authorId, BookStatus.REGISTERED, null);
     }
 
-    public Book(Long id, String title, Long categoryId, Long authorId, Episode... episodes) {
+    public Book(Long id, String title, Long categoryId, Long authorId, BookStatus bookStatus, Episode... episodes) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -62,7 +62,7 @@ public class Book extends BaseEntity {
         this.title = title;
         this.categoryId = categoryId;
         this.authorId = authorId;
-        this.bookStatus = BookStatus.REGISTERED;
+        this.bookStatus = bookStatus;
         this.episodes = episodes == null ? new ArrayList<>() : List.of(episodes);
     }
 
@@ -105,5 +105,9 @@ public class Book extends BaseEntity {
                 .filter(episode -> episode.isSameEpisodeId(episodeId))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("해당 에피소드가 없습니다."));
+    }
+
+    public void updateStatus(BookStatus bookStatus) {
+        this.bookStatus = bookStatus;
     }
 }

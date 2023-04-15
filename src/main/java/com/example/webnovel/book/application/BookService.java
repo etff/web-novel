@@ -53,4 +53,10 @@ public class BookService {
         return bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_EXIST_BOOK));
     }
+
+    public Book updateStatus(Long bookId, BookStatus bookStatus) {
+        final Book book = findBook(bookId);
+        book.updateStatus(bookStatus);
+        return book;
+    }
 }
