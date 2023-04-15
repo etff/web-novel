@@ -21,20 +21,20 @@ public class UserTicket extends BaseEntity {
     private Long userId;
 
     @Getter
-    private int totalCount;
+    private int ticketCount;
 
-    public UserTicket(Long userId, int totalCount) {
-        if (totalCount < 0) {
-            throw new InvalidCountException(totalCount);
+    public UserTicket(Long userId, int ticketCount) {
+        if (ticketCount < 0) {
+            throw new InvalidCountException(ticketCount);
         }
         this.userId = userId;
-        this.totalCount = totalCount;
+        this.ticketCount = ticketCount;
     }
 
     public UserTicket changeTotalCount(int count) {
-        int newCount = this.totalCount + count;
+        int newCount = this.ticketCount + count;
         if (newCount < 0) {
-            throw new InvalidCountException(totalCount);
+            throw new InvalidCountException(ticketCount);
         }
         return new UserTicket(this.userId, newCount);
     }

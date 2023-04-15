@@ -12,7 +12,7 @@ class UserTicketTest {
     void create() {
         UserTicket userTicket = new UserTicket(1L, 5);
 
-        assertThat(userTicket.getTotalCount()).isEqualTo(5);
+        assertThat(userTicket.getTicketCount()).isEqualTo(5);
     }
 
     @Test
@@ -25,7 +25,7 @@ class UserTicketTest {
         UserTicket userTicket = new UserTicket(1L, 5);
         UserTicket changedUserTicket = userTicket.changeTotalCount(1);
 
-        assertThat(changedUserTicket.getTotalCount()).isEqualTo(6);
+        assertThat(changedUserTicket.getTicketCount()).isEqualTo(6);
     }
 
     @Test
