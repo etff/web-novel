@@ -48,14 +48,14 @@ public class Episode extends BaseEntity {
     }
 
     public Episode(String title, String content) {
-        this(null, title, content, null);
+        this(null, title, content, null, BookStatus.REGISTERED);
     }
 
     public Episode(String title, String content, Integer ticketPrice) {
-        this(null, title, content, ticketPrice);
+        this(null, title, content, ticketPrice, BookStatus.REGISTERED);
     }
 
-    public Episode(Long id, String title, String content, Integer ticketPrice) {
+    public Episode(Long id, String title, String content, Integer ticketPrice, BookStatus bookStatus) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -63,7 +63,7 @@ public class Episode extends BaseEntity {
         this.title = title;
         this.content = content;
         this.ticketPrice = ticketPrice;
-        this.bookStatus = BookStatus.REGISTERED;
+        this.bookStatus = bookStatus;
     }
 
     public Long getId() {
