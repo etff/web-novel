@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class UserEventListener {
     private final UserService userService;
 
-    //    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @EventListener
     public void handleEpisodeReadEvent(EpisodeSubscribeEvent event) {
         log.info("handleEpisodeReadEvent: {}", event);
