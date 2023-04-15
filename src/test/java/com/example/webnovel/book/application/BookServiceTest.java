@@ -84,7 +84,7 @@ class BookServiceTest {
     @Test
     void getEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content", 0));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
@@ -98,7 +98,7 @@ class BookServiceTest {
     @Test
     void addEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, null);
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
@@ -108,4 +108,16 @@ class BookServiceTest {
         assertThat(actual.getEpisodes().size()).isEqualTo(1);
     }
 
+    @Test
+    void updateBook() {
+        // given
+        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
+        given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
+
+        // when
+        Book actual = bookService.updateStatus(1L, BookStatus.SALE_END);
+
+        // then
+        assertThat(actual.getBookStatus()).isEqualTo(BookStatus.SALE_END);
+    }
 }

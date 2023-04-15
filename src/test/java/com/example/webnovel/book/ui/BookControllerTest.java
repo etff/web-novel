@@ -1,6 +1,7 @@
 package com.example.webnovel.book.ui;
 
 import com.example.webnovel.book.application.BookService;
+import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -16,9 +17,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -86,5 +90,20 @@ class BookControllerTest {
                 .andExpect(jsonPath("content[0].title").value("title1"))
                 .andExpect(jsonPath("content[0].authorId").value(1L))
                 .andExpect(jsonPath("content[0].categoryId").value(1L));
+    }
+
+    @DisplayName("도서 상태를 변경할 수 있다.")
+    @WithMockUser
+    @Test
+    void updateBookStatus() throws Exception {
+        Book book = new Book(1L, "title", 1L, null, BookStatus.SELLING, null);
+        given(bookService.updateStatus(anyLong(), any())).willReturn(book);
+
+        // when & then
+        mvc.perform(patch("/api/v1/books/1/status")
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"bookStatus\":\"SELLING\"}"))
+                .andExpect(status().isOk());
     }
 }

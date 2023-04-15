@@ -3,6 +3,7 @@ package com.example.webnovel.book.ui;
 import com.example.webnovel.book.application.BookService;
 import com.example.webnovel.book.domain.book.Book;
 import com.example.webnovel.book.domain.book.Episode;
+import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.EpisodeResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,7 +50,7 @@ class EpisodeControllerTest {
     @Test
     void addEpisode() throws Exception {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, new Episode(1L, "title", "content", 1));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 1));
         given(bookService.addEpisode(1L, "title", "content", 1)).willReturn(givenBook);
 
         // when & then
