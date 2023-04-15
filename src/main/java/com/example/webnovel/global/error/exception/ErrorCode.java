@@ -10,7 +10,8 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "004", "Server Error"),
     INVALID_TYPE_VALUE(400, "005", " Invalid Type"),
     HANDLE_ACCESS_DENIED(403, "006", "Access is Denied"),
-    EMAIL_DUPLICATION(400, "007", "Duplicated Mail");
+    EMAIL_DUPLICATION(400, "007", "Duplicated Mail"),
+    INVALID_TICKET_COUNT(400, "008", "INVALID TICKET COUNT");
 
     private final String code;
     private final String message;

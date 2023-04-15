@@ -2,6 +2,7 @@ package com.example.webnovel.auth.dto;
 
 import com.example.webnovel.global.error.exception.EntityNotFoundException;
 import com.example.webnovel.user.domain.User;
+import com.example.webnovel.user.domain.type.Role;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,30 +12,34 @@ import java.util.Collection;
 
 @Getter
 public class AuthDetails implements UserDetails {
-    private User user;
+    private Long id;
+    private String email;
+    private Role role;
 
     public AuthDetails(User user) {
         if (user.isDeleted()) {
             throw new EntityNotFoundException("삭제된 사용자입니다.");
         }
-        this.user = user;
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.role = user.getRole();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collector = new ArrayList<>();
-        collector.add(() -> "ROLE_" + user.getRole().name());
+        collector.add(() -> "ROLE_" + this.role.name());
         return collector;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return this.email;
     }
 
     @Override
