@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ public class Episode extends BaseEntity {
     /**
      * 티켓 가격. 회차를 구매할 때 사용.
      */
+    @Getter
     private Integer ticketPrice;
 
     protected Episode() {
@@ -46,14 +48,14 @@ public class Episode extends BaseEntity {
     }
 
     public Episode(String title, String content) {
-        this(null, title, content, null);
+        this(null, title, content, null, BookStatus.REGISTERED);
     }
 
     public Episode(String title, String content, Integer ticketPrice) {
-        this(null, title, content, ticketPrice);
+        this(null, title, content, ticketPrice, BookStatus.REGISTERED);
     }
 
-    public Episode(Long id, String title, String content, Integer ticketPrice) {
+    public Episode(Long id, String title, String content, Integer ticketPrice, BookStatus bookStatus) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -61,7 +63,7 @@ public class Episode extends BaseEntity {
         this.title = title;
         this.content = content;
         this.ticketPrice = ticketPrice;
-        this.bookStatus = BookStatus.REGISTERED;
+        this.bookStatus = bookStatus;
     }
 
     public Long getId() {
@@ -86,5 +88,13 @@ public class Episode extends BaseEntity {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public boolean isOnSale() {
+        return this.bookStatus == BookStatus.SELLING;
+    }
+
+    public boolean canSubscribe() {
+        return this.bookStatus == BookStatus.SELLING && this.ticketPrice != null;
     }
 }

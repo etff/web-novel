@@ -1,5 +1,6 @@
 package com.example.webnovel.book.ui;
 
+import com.example.webnovel.auth.dto.AuthDetails;
 import com.example.webnovel.book.application.BookService;
 import com.example.webnovel.book.dto.EpisodeCreateRequest;
 import com.example.webnovel.book.dto.EpisodeResponse;
@@ -7,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +25,11 @@ public class EpisodeController {
     @GetMapping("/{bookId}/episodes/{episodeId}")
     public ResponseEntity<EpisodeResponse> getEpisode(
             @PathVariable Long bookId,
-            @PathVariable Long episodeId
+            @PathVariable Long episodeId,
+            @AuthenticationPrincipal AuthDetails authDetails
     ) {
-        final EpisodeResponse episode = bookService.getEpisode(bookId, episodeId);
+        final Long userId = authDetails.getId();
+        final EpisodeResponse episode = bookService.getEpisode(bookId, userId, episodeId);
         return ResponseEntity.ok(episode);
     }
 
