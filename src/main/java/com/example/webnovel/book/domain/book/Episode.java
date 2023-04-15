@@ -89,4 +89,12 @@ public class Episode extends BaseEntity {
     public void setBook(Book book) {
         this.book = book;
     }
+
+    public boolean isOnSale() {
+        return this.bookStatus == BookStatus.SELLING;
+    }
+
+    public boolean canSubscribe() {
+        return this.bookStatus == BookStatus.SELLING && this.ticketPrice != null;
+    }
 }

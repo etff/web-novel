@@ -7,7 +7,7 @@ import com.example.webnovel.book.domain.book.type.BookStatus;
 import com.example.webnovel.book.dto.BookResponse;
 import com.example.webnovel.book.dto.EpisodeResponse;
 import com.example.webnovel.book.infra.BookRepository;
-import com.example.webnovel.global.error.exception.EntityNotFoundException;
+import com.example.webnovel.global.error.exception.InvalidValueException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
@@ -46,8 +46,8 @@ public class BookService {
         final Book book = findBook(bookId);
         book.onSaleCheck();
         Episode episode = book.getEpisode(episodeId);
-        if (episode == null) {
-            throw new EntityNotFoundException("존재하지 않는 에피소드입니다.");
+        if (episode == null || !episode.canSubscribe()) {
+            throw new InvalidValueException("현재 에피소드를 읽을 수 없습니다.");
         }
         eventPublisher.publishEvent(new EpisodeSubscribeEvent(episodeId, userId, episode.getTicketPrice()));
         return new EpisodeResponse(episode);
