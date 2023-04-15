@@ -19,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -41,7 +43,7 @@ class EpisodeControllerTest {
     private AuthDetails authDetails;
 
     {
-        final User user = new User(1L, "test@test.com", "password", "nickname", Role.USER, UserType.GENERAL, false);
+        final User user = new User(1L, "test@test.com", "password", "nickname", Role.USER, UserType.GENERAL, false, new ArrayList<>());
         authDetails = new AuthDetails(user);
     }
 

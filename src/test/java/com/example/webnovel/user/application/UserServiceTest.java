@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -64,7 +65,7 @@ class UserServiceTest {
         final Long givenEpisodeId = 1L;
         final Integer givenCount = 1;
 
-        User user = new User(1L, "test@test.com", "name", "password", Role.USER, UserType.GENERAL, false);
+        User user = new User(1L, "test@test.com", "name", "password", Role.USER, UserType.GENERAL, false, new ArrayList<>());
         UserTicket userTicket = new UserTicket(1L, 10);
         user.setUserTicket(userTicket);
         given(userRepository.findById(any(Long.class)))
@@ -84,7 +85,7 @@ class UserServiceTest {
         final Long givenEpisodeId = 1L;
         final Integer givenCount = 1;
 
-        User user = new User(1L, "test@test.com", "name", "password", Role.USER, UserType.GENERAL, false);
+        User user = new User(1L, "test@test.com", "name", "password", Role.USER, UserType.GENERAL, false, new ArrayList<>());
         UserTicket userTicket = new UserTicket(1L, 0);
         user.setUserTicket(userTicket);
         given(userRepository.findById(any(Long.class)))
