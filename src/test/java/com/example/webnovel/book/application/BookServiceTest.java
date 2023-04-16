@@ -84,7 +84,7 @@ class BookServiceTest {
     @Test
     void getEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0, null));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when

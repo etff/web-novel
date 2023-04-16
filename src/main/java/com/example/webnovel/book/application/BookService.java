@@ -28,6 +28,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public BookResponse getBook(Long bookId) {
         final Book book = findBook(bookId);
+
         return new BookResponse(book);
     }
 
