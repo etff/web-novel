@@ -145,4 +145,11 @@ public class User extends BaseEntity {
             this.userBooks.add(new UserBook(this, episodeId, 0));
         }
     }
+
+    public void increaseTicket(Integer count) {
+        if (this.userTicket == null) {
+            this.userTicket = new UserTicket(this.id, count);
+        }
+        this.userTicket.changeTotalCount(count);
+    }
 }
