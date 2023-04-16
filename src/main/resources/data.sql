@@ -26,3 +26,15 @@ insert into episode(create_time, created_by, modified_by, update_time, book_id, 
                     content, page)
 values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 'SELLING', 'ch1.객체지향', 1,
         '객체지향 프로그래밍이란 무엇인가?', 10);
+insert into episode(create_time, created_by, modified_by, update_time, book_id, book_status, title, ticket_price,
+                    content, page)
+values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 'SELLING', 'ch2.객체지향', 1,
+        'test2', 10);
+insert into episode(create_time, created_by, modified_by, update_time, book_id, book_status, title, ticket_price,
+                    content, page)
+values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 'SELLING', 'ch3.객체지향', 1,
+        'test3', 10);
+insert into episode(create_time, created_by, modified_by, update_time, book_id, book_status, title, ticket_price,
+                    content, page)
+values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 'SELLING', 'ch4.객체지향', 1,
+        'test4', 10);
