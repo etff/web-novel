@@ -31,7 +31,7 @@ public class BookService {
         return saved.getId();
     }
 
-    @Cacheable(cacheNames = "bookRespnse")
+    @Cacheable(cacheNames = "bookResponse")
     @Transactional(readOnly = true)
     public BookResponse getBook(Long bookId) {
         final Book book = findBook(bookId);
