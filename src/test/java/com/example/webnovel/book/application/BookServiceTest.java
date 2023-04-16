@@ -88,7 +88,7 @@ class BookServiceTest {
     @Test
     void getEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0, BookStatus.SELLING));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0, BookStatus.SELLING, 0));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
@@ -106,7 +106,7 @@ class BookServiceTest {
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
-        Book actual = bookService.addEpisode(1L, "title", "content", 1);
+        Book actual = bookService.addEpisode(1L, "title", "content", 1, 0);
 
         // then
         assertThat(actual.getEpisodes().size()).isEqualTo(1);
