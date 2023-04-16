@@ -46,7 +46,7 @@ class BookServiceTest {
     @Test
     void createBook() {
         // given
-        given(bookRepository.save(any(Book.class))).willReturn(new Book(1L, "title", 1L, 1L, null));
+        given(bookRepository.save(any(Book.class))).willReturn(new Book(1L, "title", 1L, 1L, BookStatus.SELLING, null));
         // when
         final Long actual = bookService.createBook("title", 1L, 1L);
         // then
@@ -57,7 +57,7 @@ class BookServiceTest {
     @Test
     void readBookById() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, null);
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
         // when
         final BookResponse actual = bookService.getBook(1L);
@@ -70,7 +70,7 @@ class BookServiceTest {
     void readBookByPage() {
         // given
         given(bookRepository.findAllByBookStatus(any(), any())).willReturn(
-                new PageImpl<>(List.of(new Book(1L, "title", 1L, 1L, null)))
+                new PageImpl<>(List.of(new Book(1L, "title", 1L, 1L, BookStatus.SELLING, null)))
         );
 
         // when
@@ -88,7 +88,7 @@ class BookServiceTest {
     @Test
     void getEpisode() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 0, BookStatus.SELLING, 0));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, List.of(new Episode(1L, "title", "content", 0, BookStatus.SELLING, 0)));
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when
@@ -115,7 +115,7 @@ class BookServiceTest {
     @Test
     void updateBook() {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, null);
+        final Book givenBook = new Book(1L, "title", 1L, 1L, null, null);
         given(bookRepository.findById(anyLong())).willReturn(Optional.of(givenBook));
 
         // when

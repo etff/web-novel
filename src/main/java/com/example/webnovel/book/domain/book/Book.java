@@ -56,7 +56,7 @@ public class Book extends BaseEntity {
         this(null, title, categoryId, authorId, BookStatus.REGISTERED, null);
     }
 
-    public Book(Long id, String title, Long categoryId, Long authorId, BookStatus bookStatus, Episode... episodes) {
+    public Book(Long id, String title, Long categoryId, Long authorId, BookStatus bookStatus, List<Episode> episodes) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -65,7 +65,7 @@ public class Book extends BaseEntity {
         this.categoryId = categoryId;
         this.authorId = authorId;
         this.bookStatus = bookStatus;
-        this.episodes = episodes == null ? new ArrayList<>() : List.of(episodes);
+        this.episodes = episodes == null ? new ArrayList<>() : episodes;
     }
 
     public Long getId() {
