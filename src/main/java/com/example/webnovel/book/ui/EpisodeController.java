@@ -38,7 +38,7 @@ public class EpisodeController {
             @PathVariable Long bookId,
             @RequestBody @Valid EpisodeCreateRequest request
     ) {
-        bookService.addEpisode(bookId, request.getTitle(), request.getContent(), request.getTicketPrice());
+        bookService.addEpisode(bookId, request.getTitle(), request.getContent(), request.getTicketPrice(), request.getPage());
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
