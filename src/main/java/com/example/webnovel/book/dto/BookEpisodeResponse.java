@@ -4,15 +4,11 @@ import com.example.webnovel.book.domain.book.Episode;
 import com.example.webnovel.global.utils.TimeUtil;
 import lombok.Getter;
 
-import java.time.format.DateTimeFormatter;
-
 /**
  * 도서 조회시 같이 보여주는 에피소드 정보.
  */
 @Getter
 public class BookEpisodeResponse {
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-
     private Long episodeId;
     private String title;
     private Integer page;
