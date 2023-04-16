@@ -40,6 +40,8 @@ public class Episode extends BaseEntity {
     @Getter
     private Integer ticketPrice;
 
+    private Integer page;
+
     protected Episode() {
     }
 
@@ -48,14 +50,14 @@ public class Episode extends BaseEntity {
     }
 
     public Episode(String title, String content) {
-        this(null, title, content, null, BookStatus.REGISTERED);
+        this(null, title, content, null, BookStatus.REGISTERED, 0);
     }
 
-    public Episode(String title, String content, Integer ticketPrice) {
-        this(null, title, content, ticketPrice, BookStatus.REGISTERED);
+    public Episode(String title, String content, Integer ticketPrice, Integer page) {
+        this(null, title, content, ticketPrice, BookStatus.REGISTERED, page);
     }
 
-    public Episode(Long id, String title, String content, Integer ticketPrice, BookStatus bookStatus) {
+    public Episode(Long id, String title, String content, Integer ticketPrice, BookStatus bookStatus, Integer page) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("제목이 비어있으면 안됩니다.");
         }
@@ -96,5 +98,9 @@ public class Episode extends BaseEntity {
 
     public boolean canSubscribe() {
         return this.bookStatus == BookStatus.SELLING && this.ticketPrice != null;
+    }
+
+    public Integer getPage() {
+        return page;
     }
 }

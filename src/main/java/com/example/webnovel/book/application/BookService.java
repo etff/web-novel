@@ -33,6 +33,7 @@ public class BookService {
     @Transactional(readOnly = true)
     public BookResponse getBook(Long bookId) {
         final Book book = findBook(bookId);
+
         return new BookResponse(book);
     }
 
@@ -53,9 +54,9 @@ public class BookService {
         return new EpisodeResponse(episode);
     }
 
-    public Book addEpisode(Long bookId, String title, String content, Integer ticketPrice) {
+    public Book addEpisode(Long bookId, String title, String content, Integer ticketPrice, Integer page) {
         final Book book = findBook(bookId);
-        book.addEpisode(new Episode(title, content, ticketPrice));
+        book.addEpisode(new Episode(title, content, ticketPrice, page));
         return book;
     }
 
