@@ -34,7 +34,7 @@ class EpisodeTest {
     @Test
     void isSameEpisode() {
         // given
-        final Episode episode = new Episode(1L, "title", "content", null, null);
+        final Episode episode = new Episode(1L, "title", "content", null, BookStatus.REGISTERED);
 
         // when
         boolean actual = episode.isSameEpisodeId(1L);
