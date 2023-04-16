@@ -4,6 +4,7 @@ import com.example.webnovel.book.domain.book.Book;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -33,6 +34,7 @@ public class BookResponse {
 
     private List<BookEpisodeResponse> getEpisodes(Book book) {
         return book.getEpisodes().stream()
+                .filter(Objects::nonNull)
                 .map(BookEpisodeResponse::new)
                 .collect(Collectors.toList());
     }
