@@ -16,6 +16,8 @@ public class AuthDetails implements UserDetails {
     private String email;
     private Role role;
 
+    private String password;
+
     public AuthDetails(User user) {
         if (user.isDeleted()) {
             throw new EntityNotFoundException("삭제된 사용자입니다.");
@@ -23,6 +25,7 @@ public class AuthDetails implements UserDetails {
         this.id = user.getId();
         this.email = user.getEmail();
         this.role = user.getRole();
+        this.password = user.getPassword();
     }
 
     @Override
@@ -34,7 +37,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
