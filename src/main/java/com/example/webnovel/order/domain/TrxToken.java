@@ -19,7 +19,7 @@ import java.util.Objects;
 public class TrxToken {
 
     @Id
-    @Column(name = "uuid")
+    @Column(name = "trx_key")
     private String id;
 
     @Enumerated(EnumType.STRING)
