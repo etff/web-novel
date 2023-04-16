@@ -9,6 +9,7 @@ import com.example.webnovel.book.dto.EpisodeResponse;
 import com.example.webnovel.book.infra.BookRepository;
 import com.example.webnovel.global.error.exception.InvalidValueException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ public class BookService {
         return saved.getId();
     }
 
+    @Cacheable(cacheNames = "bookRespnse")
     @Transactional(readOnly = true)
     public BookResponse getBook(Long bookId) {
         final Book book = findBook(bookId);
