@@ -32,7 +32,8 @@ public class AuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         final User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException(email));
-        return new AuthDetails(user);
+        AuthDetails authDetails = new AuthDetails(user);
+        return authDetails;
     }
 
     @Transactional(readOnly = true)
