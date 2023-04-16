@@ -34,7 +34,7 @@ class BookTest {
     void addEpisode() {
         // given
         final Book book = new Book("title");
-        final Episode episode = new Episode("title", "content");
+        final Episode episode = new Episode("title", "content", 1, 10);
         // when
         book.addEpisode(episode);
         // then
