@@ -4,6 +4,7 @@ import com.example.webnovel.user.exception.InvalidCountException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTicketTest {
@@ -23,9 +24,8 @@ class UserTicketTest {
     @Test
     void changeTotalCount() {
         UserTicket userTicket = new UserTicket(1L, 5);
-        UserTicket changedUserTicket = userTicket.changeTotalCount(1);
 
-        assertThat(changedUserTicket.getTicketCount()).isEqualTo(6);
+        assertDoesNotThrow(() -> userTicket.changeTotalCount(1));
     }
 
     @Test

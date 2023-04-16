@@ -1,6 +1,8 @@
 package com.example.webnovel.book.domain.book;
 
 import com.example.webnovel.book.domain.book.type.BookStatus;
+import com.example.webnovel.global.error.exception.EntityNotFoundException;
+import com.example.webnovel.global.error.exception.InvalidValueException;
 import com.example.webnovel.global.model.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -104,10 +106,16 @@ public class Book extends BaseEntity {
         return episodes.stream()
                 .filter(episode -> episode.isSameEpisodeId(episodeId))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당 에피소드가 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("해당 에피소드가 없습니다."));
     }
 
     public void updateStatus(BookStatus bookStatus) {
         this.bookStatus = bookStatus;
+    }
+
+    public void onSaleCheck() {
+        if (this.bookStatus != BookStatus.SELLING) {
+            throw new InvalidValueException("판매중인 도서가 아닙니다.");
+        }
     }
 }

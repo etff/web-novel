@@ -4,12 +4,14 @@ import com.example.webnovel.global.model.BaseEntity;
 import com.example.webnovel.user.exception.InvalidCountException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -19,6 +21,11 @@ public class UserTicket extends BaseEntity {
     @Id
     @Column(name = "user_id")
     private Long userId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Getter
     private int ticketCount;
@@ -31,24 +38,16 @@ public class UserTicket extends BaseEntity {
         this.ticketCount = ticketCount;
     }
 
-    public UserTicket changeTotalCount(int count) {
+    public void changeTotalCount(int count) {
         int newCount = this.ticketCount + count;
         if (newCount < 0) {
             throw new InvalidCountException(ticketCount);
         }
-        return new UserTicket(this.userId, newCount);
+
+        this.ticketCount = newCount;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserTicket)) return false;
-        UserTicket that = (UserTicket) o;
-        return Objects.equals(getUserId(), that.getUserId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getUserId());
+    public void setUser(User user) {
+        this.user = user;
     }
 }
