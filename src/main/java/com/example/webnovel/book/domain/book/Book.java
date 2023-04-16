@@ -49,11 +49,11 @@ public class Book extends BaseEntity {
     }
 
     public Book(String title) {
-        this(null, title, null, null, BookStatus.REGISTERED, new Episode());
+        this(null, title, null, null, BookStatus.REGISTERED, null);
     }
 
     public Book(String title, Long categoryId, Long authorId) {
-        this(null, title, categoryId, authorId, BookStatus.REGISTERED, new Episode());
+        this(null, title, categoryId, authorId, BookStatus.REGISTERED, null);
     }
 
     public Book(Long id, String title, Long categoryId, Long authorId, BookStatus bookStatus, Episode... episodes) {
