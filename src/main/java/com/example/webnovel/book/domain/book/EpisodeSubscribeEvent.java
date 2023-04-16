@@ -1,11 +1,9 @@
 package com.example.webnovel.book.domain.book;
 
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.Objects;
 
-@ToString
 @Getter
 public class EpisodeSubscribeEvent {
 
@@ -30,5 +28,14 @@ public class EpisodeSubscribeEvent {
     @Override
     public int hashCode() {
         return Objects.hash(getEpisodeId(), getUserId(), getCount());
+    }
+
+    @Override
+    public String toString() {
+        return "EpisodeSubscribeEvent{" +
+                "episodeId=" + episodeId +
+                ", userId=" + userId +
+                ", count=" + count +
+                '}';
     }
 }
