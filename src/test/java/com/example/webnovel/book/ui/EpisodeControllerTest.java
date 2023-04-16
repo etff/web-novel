@@ -10,6 +10,7 @@ import com.example.webnovel.book.dto.EpisodeResponse;
 import com.example.webnovel.user.domain.User;
 import com.example.webnovel.user.domain.type.Role;
 import com.example.webnovel.user.domain.type.UserType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,8 @@ class EpisodeControllerTest {
 
     private AuthDetails authDetails;
 
-    {
+    @BeforeEach
+    void setUp() {
         final User user = new User(1L, "test@test.com", "password", "nickname", Role.USER, UserType.GENERAL, false, new ArrayList<>());
         authDetails = new AuthDetails(user);
     }

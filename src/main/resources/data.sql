@@ -38,3 +38,6 @@ insert into episode(create_time, created_by, modified_by, update_time, book_id, 
                     content, page)
 values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 'SELLING', 'ch4.객체지향', 1,
         'test4', 10);
+
+insert into user_book(create_time, created_by, modified_by, update_time, episode_id, page, user_id)
+values ('2023-01-01 00:00:00', 'SYSTEM', 'SYSTEM', '2023-01-01 00:00:00', 1, 3, 1);
