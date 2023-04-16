@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
-public interface BookRepository extends CrudRepository<Book, Long> {
+public interface BookRepository extends CrudRepository<Book, Long>, BookRepositoryCustom {
     Page<Book> findAllByBookStatus(BookStatus bookStatus, Pageable pageable);
 }
