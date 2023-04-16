@@ -10,6 +10,7 @@ import com.example.webnovel.book.dto.EpisodeResponse;
 import com.example.webnovel.user.domain.User;
 import com.example.webnovel.user.domain.type.Role;
 import com.example.webnovel.user.domain.type.UserType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -42,7 +44,8 @@ class EpisodeControllerTest {
 
     private AuthDetails authDetails;
 
-    {
+    @BeforeEach
+    void setUp() {
         final User user = new User(1L, "test@test.com", "password", "nickname", Role.USER, UserType.GENERAL, false, new ArrayList<>());
         authDetails = new AuthDetails(user);
     }
@@ -66,7 +69,7 @@ class EpisodeControllerTest {
     @Test
     void addEpisode() throws Exception {
         // given
-        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, new Episode(1L, "title", "content", 1, BookStatus.REGISTERED, 10));
+        final Book givenBook = new Book(1L, "title", 1L, 1L, BookStatus.SELLING, List.of(new Episode(1L, "title", "content", 1, BookStatus.REGISTERED, 10)));
         given(bookService.addEpisode(1L, "title", "content", 1, 10)).willReturn(givenBook);
 
         // when & then

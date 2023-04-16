@@ -1,14 +1,18 @@
 package com.example.webnovel.user.application;
 
 import com.example.webnovel.user.domain.User;
+import com.example.webnovel.user.dto.UserFavoriteResponse;
 import com.example.webnovel.user.exception.EmailDuplicatedException;
 import com.example.webnovel.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,5 +38,10 @@ public class UserService {
 
         user.subscribeEpisode(episodeId, count);
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserFavoriteResponse> getUserFavoriteEpisodes(Long userId, Pageable pageable) {
+        return userRepository.findUserFavoriteEpisodes(userId, pageable);
     }
 }

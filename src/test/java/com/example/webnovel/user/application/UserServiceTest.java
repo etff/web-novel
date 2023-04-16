@@ -5,6 +5,7 @@ import com.example.webnovel.user.domain.User;
 import com.example.webnovel.user.domain.UserTicket;
 import com.example.webnovel.user.domain.type.Role;
 import com.example.webnovel.user.domain.type.UserType;
+import com.example.webnovel.user.dto.UserFavoriteResponse;
 import com.example.webnovel.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,10 +13,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -94,5 +99,24 @@ class UserServiceTest {
         // when
         assertThatCode(() -> userService.subscribeEpisode(givenUserId, givenEpisodeId, givenCount))
                 .isInstanceOf(InvalidValueException.class);
+    }
+
+    @Test
+    void getUserFavorites() {
+        // given
+        final Long givenUserId = 1L;
+        final Integer givenPage = 0;
+        final Integer givenSize = 10;
+        List<UserFavoriteResponse> userFavoriteResponses = List.of(new UserFavoriteResponse(1L, "title", 10, 1, "2022-01-01 00:00:00"));
+        given(userRepository.findUserFavoriteEpisodes(any(Long.class), any(PageRequest.class)))
+                .willReturn(
+                        new PageImpl<>(userFavoriteResponses, PageRequest.of(givenPage, givenSize), userFavoriteResponses.size()
+                        ));
+
+        // when
+        Page<UserFavoriteResponse> userFavoriteEpisodes = userService.getUserFavoriteEpisodes(givenUserId, PageRequest.of(givenPage, givenSize));
+
+        // then
+        assertThat(userFavoriteEpisodes.getContent().size()).isEqualTo(1);
     }
 }
