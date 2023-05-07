@@ -52,7 +52,7 @@ jobs:
 
       ## gradle build
       - name: Build with Gradle
-        run: ./gradlew bootJar
+        run: ./gradlew clean build --debug
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
