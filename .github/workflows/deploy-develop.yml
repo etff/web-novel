@@ -85,6 +85,6 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         run: |
-          push docker build -t etff .
-          push docker tag etff:latest 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
-          push docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:latest
+          docker build -t etff .
+          docker tag etff:latest 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
+          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-nove-${{steps.current-time.outputs.formattedTime}}
