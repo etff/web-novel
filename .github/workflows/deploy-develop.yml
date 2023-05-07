@@ -50,14 +50,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Korean
 
-      # 추가
-      - name: Cleanup Gradle Cache
-        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
-        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
-        if: ${{ always() }}
-        run: |
-          rm -f ~/.gradle/caches/modules-2/modules-2.lock
-          rm -f ~/.gradle/caches/modules-2/gc.properties
+      ## gradle build
+      - name: Build with Gradle
+        run: ./gradlew bootJar
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -84,4 +79,13 @@ jobs:
         run: |
           docker build -t web-novel .
           docker tag web-novel:${{steps.current-time.outputs.formattedTime}} 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
-          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
+          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}        
+
+      # 추가
+      - name: Cleanup Gradle Cache
+        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
+        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
+        if: ${{ always() }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
