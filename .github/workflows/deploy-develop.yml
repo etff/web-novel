@@ -24,7 +24,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Cache Gradle packages
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -60,7 +60,7 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/gc.properties
 
       - name: Get current time
-        uses: 1466587594/get-current-time@v2
+        uses: 1466587594/get-current-time@v3
         id: current-time
         with:
           format: YYYY-MM-DDTHH-mm-ss
@@ -70,7 +70,7 @@ jobs:
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -85,6 +85,6 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         run: |
-          docker build -t etff .
-          docker tag etff:latest 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
-          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-nove-${{steps.current-time.outputs.formattedTime}}
+          docker build -t web-novel .
+          docker tag web-novel:${{steps.current-time.outputs.formattedTime}} 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
+          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/etff:web-novel-${{steps.current-time.outputs.formattedTime}}
