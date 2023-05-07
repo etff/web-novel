@@ -77,7 +77,7 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         run: |
-          docker build -t web-novel .
+          docker build -t web-novel:${{steps.current-time.outputs.formattedTime}} .
           docker tag web-novel:${{steps.current-time.outputs.formattedTime}} 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel:${{steps.current-time.outputs.formattedTime}}
           docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel:${{steps.current-time.outputs.formattedTime}}        
 
