@@ -53,15 +53,16 @@ jar {
     enabled = false
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ["$projectDir/src/main/java", "$projectDir/build/generated"]
-        }
-    }
+def generated = 'src/main/generated'
+
+tasks.withType(JavaCompile) {
+    options.getGeneratedSourceOutputDirectory().set(file(generated))
 }
 
+sourceSets {
+    main.java.srcDirs += [generated]
+}
 
 clean {
-    delete file('src/main/generated')
+    delete file(generated)
 }
