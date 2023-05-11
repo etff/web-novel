@@ -71,10 +71,14 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REPOSITORY: web-novel
+          #          IMAGE_TAG: ${{ steps.current-time.outputs.formattedTime }}
+          IMAGE_TAG: latest
         run: |
-          docker build -t web-novel:${{steps.current-time.outputs.formattedTime}} .
-          docker tag web-novel:${{steps.current-time.outputs.formattedTime}} 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel:${{steps.current-time.outputs.formattedTime}}
-          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel:${{steps.current-time.outputs.formattedTime}}        
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
       # 추가
       - name: Cleanup Gradle Cache
