@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    TZ: "Asia/Seoul"
+    SPRING_PROFILE: "default"
 
 phases:
   install:
@@ -38,40 +38,35 @@ phases:
             && update-alternatives --install /usr/bin/$tool $tool $tool_path 20000;
           fi;
         done
-      - REGION=ap-northeast-2
-      - REPOSITORY_URI=809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel
-      - IMAGE_NAME=web-novel
-      - IMAGE_TAG=latest
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - BUILD_TAG=${COMMIT_HASH:=latest}
-      - CONTAINER_NAME=web-novel
       - echo Logging in to Amazon ECR...
-        - aws --version
-        - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com
-        - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-        - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - aws --version
+      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 809995143298.dkr.ecr.ap-northeast-2.amazonaws.com
+      - REPOSITORY_URI=809995143298.dkr.ecr.ap-northeast-2.amazonaws.com/web-novel
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
+      - chmod +x ./gradlew
+      - echo unit testing ...
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE} ./gradlew test
+      - echo make jar ...
+      - ./gradlew assemble
+      - echo Build started on `date`
       - echo Building the Docker image...
-      - chmod +x gradlew
-      - ./gradlew bootBuildImage --imageName=$IMAGE_NAME
-      - docker build -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG .
-      - echo Docker build and tagging completed on `date`
+      - docker build -f Dockerfile -t $REPOSITORY_URI:latest --build-arg JAR_FILE=build/libs/web-novel-0.0.1-SNAPSHOT.jar .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
+      - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI/$IMAGE_NAME:$IMAGE_TAG
-      - docker push $REPOSITORY_URI/$IMAGE_NAME:$BUILD_TAG
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI/$IMAGE_NAME:$BUILD_TAG > imagedefinitions.json
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"web-novel","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
-
 cache:
   paths:
-    - '/root/.gradle/caches/**/*'
-    - '/root/.m2/**/*'
-    - '/root/.cache/pip/**/*'
-    - '/root/.npm/**/*'
+    - '/root/.gradle/**/*'
 
 artifacts:
-  files:
-    - imagedefinitions.json
+  files: imagedefinitions.json
