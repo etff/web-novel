@@ -46,14 +46,17 @@ phases:
       - BUILD_TAG=${COMMIT_HASH:=latest}
       - CONTAINER_NAME=web-novel
       - echo Logging in to Amazon ECR...
-      - aws --version
-      - aws ecr get-login-password --region $REGION | docker login -u AWS --password-stdin $REPOSITORY_URI
+        - aws --version
+        - aws ecr get-login-password | docker login --username AWS --password-stdin $REPOSITORY_URI
+        - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+        - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
       - echo Building the Docker image...
       - chmod +x gradlew
       - ./gradlew bootBuildImage --imageName=$IMAGE_NAME
-      - docker tag $REPOSITORY_URI/$IMAGE_NAME:$IMAGE_TAG $REPOSITORY_URI/$IMAGE_NAME:$BUILD_TAG
+      - docker build -t $REPOSITORY_URI:latest -t $REPOSITORY_URI:$IMAGE_TAG .
+      - echo Docker build and tagging completed on `date`
   post_build:
     commands:
       - echo Pushing the Docker images...
