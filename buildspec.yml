@@ -46,10 +46,10 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
+      - echo Build Starting on `date`
+      - cd [Project Root Dir]
       - chmod +x ./gradlew
-      - echo make jar ...
       - ./gradlew build
-      - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -f Dockerfile -t $REPOSITORY_URI:latest --build-arg JAR_FILE=build/libs/web-novel-0.0.1-SNAPSHOT.jar .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
