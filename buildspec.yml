@@ -7,15 +7,10 @@ env:
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto17
     run-as: root
   pre_build:
     commands:
-      - echo "Installing Java 17..."
-      - curl -OJL https://download.java.net/java/17/jdk/17.0.1+12/0d1cfde4252546c6931946de8db48ee2/jdk-17.0.1_linux-x64_bin.tar.gz
-      - tar xvf jdk-17.0.1_linux-x64_bin.tar.gz
-      - export JAVA_HOME=$(pwd)/jdk-17.0.1
-      - export PATH=$PATH:$JAVA_HOME/bin
       - echo "Building the Spring Boot application..."
       - echo Logging in to Amazon ECR...
       - aws --version
