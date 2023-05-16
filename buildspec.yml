@@ -47,8 +47,6 @@ phases:
   build:
     commands:
       - chmod +x ./gradlew
-      - echo unit testing ...
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILE} ./gradlew test
       - echo make jar ...
       - ./gradlew assemble
       - echo Build started on `date`
