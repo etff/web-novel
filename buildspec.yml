@@ -49,7 +49,6 @@ phases:
       - echo Building the Docker image...
       - chmod +x gradlew
       - ./gradlew bootBuildImage --imageName=web-novel
-      - docker tag $REPOSITORY_URI/$IMAGE_NAME:$IMAGE_TAG $REPOSITORY_URI/$IMAGE_NAME:$BUILD_TAG
       - echo Building the Docker image...
       - docker build -f Dockerfile -t $REPOSITORY_URI:latest --build-arg JAR_FILE=build/libs/web-novel-0.0.1-SNAPSHOT.jar .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
