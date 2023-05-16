@@ -48,7 +48,7 @@ phases:
     commands:
       - chmod +x ./gradlew
       - echo make jar ...
-      - ./gradlew assemble
+      - ./gradlew build
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -f Dockerfile -t $REPOSITORY_URI:latest --build-arg JAR_FILE=build/libs/web-novel-0.0.1-SNAPSHOT.jar .
