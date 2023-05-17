@@ -29,4 +29,6 @@ spring:
 
 logging:
   level:
-    org.hibernate.type: trace # sql binding 값 출력
+    root: info
+#    org.hibernate.type: trace # sql binding 값 출력
+#
